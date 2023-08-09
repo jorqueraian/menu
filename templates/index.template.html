@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="$lang$">
+<head>
+    {% include 'head.partial.html' %}
+    <title>{% if index_title %}{{index_title}} – {% endif %} main</title>
+</head>
+<body>
+    <main class="index">
+        <header>
+            <div class="name">
+                <nav>
+                    <a href="/"><h2>Home<i>⟩</i></h2></a>
+                </nav>
+                {% if index_title %}
+                    <h1><span>{{index_title}}</span></h1>
+                {% else %}
+                    <div>&nbsp;</div>  <!-- fix for weird line-height behavior when there's no block element in the inline-block element .name in safari -->
+                {% endif %}
+            </div>
+            {% if index_description %}
+                <p>{{index_description}}</p>
+            {% endif %}
+            <!--<aside class="search">
+                <input type="text" placeholder="search..." id="search_input" disabled>
+                <div class="results" id="search_output"></div>
+                <script src="{{ url_for('static', filename='search.js') }}"></script>
+            </aside>-->
+        </header>
+        {% for day in mealplan %}
+            <section>
+                <h2>{{day[0]}}</h2>
+                {% for recipe in day[1] %}
+                    {% include 'recipe_list_item.partial.html' %}
+                {% endfor %}
+            </section>
+        {% endfor %}
+        {% include 'footer.partial.html' %}
+    </main>
+</body>
+</html>
