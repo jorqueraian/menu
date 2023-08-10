@@ -1,18 +1,22 @@
 
     <h3>
         <i class="icons">
-            {% if recipe[2]["favorite"] %}<img src="{{ url_for('static', filename='tabler-icons/tabler-icon-star.svg') }}"> {% endif %}
-            <!--{% if recipe[2]["veggie"] %} {% endif %}$if(recipe.vegan)$$else$<img src="assets/tabler-icons/tabler-icon-meat.svg" alt="$strings.meat_label$">$endif$$endif$-->
-            {% if recipe[2]["veggie"] %} <img src="{{ url_for('static', filename='tabler-icons/tabler-icon-leaf.svg') }}" alt="Veggie"> {% endif %}
-            {% if recipe[2]["spicy"] %}<img src="{{ url_for('static', filename='tabler-icons/tabler-icon-pepper.svg') }}" alt="spicy">{% endif %}
+            {% if recipes[recipe][8]["favorite"] %}<img src="{{ url_for('static', filename='tabler-icons/tabler-icon-star.svg') }}"> {% endif %}
+            <!--{ if recipe[2]["veggie"] } { endif }$if(recipe.vegan)$$else$<img src="assets/tabler-icons/tabler-icon-meat.svg" alt="$strings.meat_label$">$endif$$endif$-->
+            {% if recipes[recipe][8]["veggie"] %} <img src="{{ url_for('static', filename='tabler-icons/tabler-icon-leaf.svg') }}" alt="Veggie"> {% endif %}
+            {% if recipes[recipe][8]["spicy"] %}<img src="{{ url_for('static', filename='tabler-icons/tabler-icon-pepper.svg') }}" alt="spicy">{% endif %}
             <!--$if(recipe.sweet)$<img src="assets/tabler-icons/tabler-icon-candy.svg" alt="$strings.sweet_label$">$endif$
             $if(recipe.salty)$<img src="assets/tabler-icons/tabler-icon-salt.svg" alt="$strings.salty_label$">$endif$
             $if(recipe.sour)$<img src="assets/tabler-icons/tabler-icon-lemon.svg" alt="$strings.sour_label$">$endif$
             $if(recipe.bitter)$<img src="assets/tabler-icons/tabler-icon-coffee.svg" alt="$strings.bitter_label$">$endif$
             $if(recipe.umami)$<img src="assets/tabler-icons/tabler-icon-mushroom.svg" alt="$strings.umami_label$">$endif$-->
+            &nbsp&nbsp&nbsp
+            <a href="/remove/{{days[it]}}/{{recipe}}"><img src="{{ url_for('static', filename='tabler-icons/delete-button.svg') }}" alt="delete"></a>
         </i>
-        <a href="/recipe/{{recipe[0]}}"><span>{{recipe[1]}}</span></a>
+        <a href="/recipe/{{recipe}}"><span>{{recipes[recipe][0]}}</span></a>
+        <!--<a href="/remove/{{days[it]}}/{{recipe}}"><span>(-)</span></a>-->
     </h3>
     <!--$if(recipe.description)$
         <p>$recipe.description$</p>
     $endif$-->
+    

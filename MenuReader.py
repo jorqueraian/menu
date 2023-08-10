@@ -13,19 +13,42 @@ def read_menu(menu_csv): # Im lazy so this will be poorly written
     with open(menu_csv, newline='') as csvfile:
         recipes = csv.reader(csvfile, delimiter=',', quotechar='"')
         recipe_arr = [row for row in recipes][1:]
+        # TODO: Split by main meal, dinner/lunch, side and so on
         for j, row in enumerate(recipe_arr):
             ingredients = re.split(R", *", row[3])
             ing_pairs = [("","")]*len(ingredients)
             for i, ing in enumerate(ingredients):
                 ing_by_word = re.split(R" +", ing)
                 ing_pairs[i]=(ing_by_word[0], ' '.join(ing_by_word[1:])) if re.match(R"[0-9]+[0-9-./]*\w*", ing_by_word[0]) else ("", ing)
-            #TODO: also need to do same thing but for instructions probably splitting on something of the form (\d)
+            # TODO: also need to do same thing but for instructions probably splitting on something of the form (\d)
+            # TODO: Parse tags string and put in dictionary: example: {"spicy":True, "favorite":True}
             recipe_arr[j][3]=ing_pairs
         return recipe_arr
     
 
 def generate_meal_plan(recipes):
+    # This might be tricky. we need to a way to take into account how many servings 
+    # a meal has and how many people will be eating. Maybe adding a way to remove items from the meal plan
+    # this should also save the meal plan as a file and reload checking how old the file is. If its at least a day old and its monday
+    # then a new meal plan will be created. Or if no file exists it will generate. For simplicity i think the meal plan should be saved as: [[4,3],[5],[1,12,6],....] where each element is a list
+    # of that days and meals given by their index in the recipe array. But the function should return a list with more information. or maybe the flask should just generate the info for its self.
     pass
 
 
-print(read_menu("menu.csv")[0])
+def save_meal_plan(meal_plan):
+    # TODO: Can probably just save directly to a file.
+    pass
+
+
+def remove_from_meal_plan(meal_plan, day, meal):
+    meal_plan[day].remove(meal)
+    save_meal_plan(meal_plan)
+
+
+def generate_shopping_list(meal_plan):
+    #also may be trick to add up ingredients and what not. do last
+    pass
+
+
+
+#print(read_menu("menu.csv")[0])

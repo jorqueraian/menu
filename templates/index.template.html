@@ -26,10 +26,10 @@
                 <script src="{{ url_for('static', filename='search.js') }}"></script>
             </aside>-->
         </header>
-        {% for day in mealplan %}
+        {% for it, day in mealplan %}
             <section>
-                <h2>{{day[0]}}</h2>
-                {% for recipe in day[1] %}
+                <h2>{{days[it]}}</h2>
+                {% for recipe in day %}
                     {% include 'recipe_list_item.partial.html' %}
                 {% endfor %}
             </section>
