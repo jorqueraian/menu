@@ -23,6 +23,7 @@ def read_menu(menu_csv): # Im lazy so this will be poorly written
             # TODO: also need to do same thing but for instructions probably splitting on something of the form (\d)
             # TODO: Parse tags string and put in dictionary: example: {"spicy":True, "favorite":True}
             recipe_arr[j][3]=ing_pairs
+            recipe_arr[j][4]=[recipe_arr[j][4]]  # this is only so front end doesn't break but should de removed when parsing of instructions is done
         return recipe_arr
     
 

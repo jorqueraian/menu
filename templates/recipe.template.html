@@ -2,7 +2,7 @@
 <html lang="$lang$">
 <head>
     {% include 'head.partial.html' %}
-    <title>{{title}}</title>
+    <title>{{recipe[0]}}</title>
 </head>
 <body>
     <main class="recipe">
@@ -10,16 +10,15 @@
             <div class="name">
                 <nav>
                     <a href="/"><h2>Home<i>⟩</i></h2></a>
-                    {% if category %}<a href="${category_faux_urlencoded}.html">{{category}}</a> <i>⟩</i>{% endif %}
                 </nav>
-                <h1><span>{{title}}{% if favorite %}<sup>★</sup>{% endif %}</span></h1>
+                <h1><span>{{recipe[0]}}{% if recipe[8]["favorite"] %}<sup>★</sup>{% endif %}</span></h1>
             </div>
             <ul>
-                {% if size %}
-                <li><img src="{{ url_for('static', filename='tabler-icons/tabler-icon-tools-kitchen-2.svg') }}"> {{size}}</li>
+                {% if recipe[2] %}
+                <li><img src="{{ url_for('static', filename='tabler-icons/tabler-icon-tools-kitchen-2.svg') }}"> {{recipe[2]}}</li>
                 {% endif %}
-                {% if time %}
-                <li><img src="{{ url_for('static', filename='tabler-icons/tabler-icon-clock.svg') }}"> {{time}}</li>
+                {% if recipe[8]["time"] %}
+                <li><img src="{{ url_for('static', filename='tabler-icons/tabler-icon-clock.svg') }}"> {{recipe[8]["time"]}}</li>
                 {% endif %}
                 {% if author %}
                     <li>
@@ -29,33 +28,30 @@
                         <img src="{{ url_for('static', filename='tabler-icons/tabler-icon-user.svg') }}"> {{author}}
                         {% endif %}
                     </li>
-                {% elif source%}
-                    <li><a href="{{source}}"><img src="{{ url_for('static', filename='tabler-icons/tabler-icon-link.svg') }}"> $strings.source_label$</a></li>
+                {% elif recipe[5]%}
+                    <li><a href="{{recipe[5]}}"><img src="{{ url_for('static', filename='tabler-icons/tabler-icon-link.svg') }}"> {{recipe[5]}}</a></li>
                 {% endif %}
-                {% if veggie %} {% else %}
-                    {% if vegan %} {% else %}
-                        <li><img src="{{ url_for('static', filename='tabler-icons/tabler-icon-meat.svg') }}"> $strings.meat_label$</li>
-                    {% endif %}
+                {% if recipe[8]["veggie"] %}
+                    <li><img src="{{ url_for('static', filename='tabler-icons/tabler-icon-leaf.svg') }}"> vegetarian</li>
+                {% else %}
+                    <!--<li><img src="{{ url_for('static', filename='tabler-icons/tabler-icon-meat.svg') }}"> meat</li>-->
                 {% endif %}
-                {% if vegan %}
-                    <li><img src="{{ url_for('static', filename='tabler-icons/tabler-icon-leaf.svg') }}"> $strings.vegan_label$</li>
+                {% if recipe[8]["spicy"] %}
+                    <li><img src="{{ url_for('static', filename='tabler-icons/tabler-icon-pepper.svg') }}"> {{recipe[8]["spicy"]}}</li>
                 {% endif %}
-                {% if spicy %}
-                    <li><img src="{{ url_for('static', filename='tabler-icons/tabler-icon-pepper.svg') }}"> $strings.spicy_label$</li>
-                {% endif %}
-                {% if sweet %}
+                {% if recipe[8]["sweet"] %}
                     <li><img src="{{ url_for('static', filename='tabler-icons/tabler-icon-candy.svg') }}"> $strings.sweet_label$</li>
                 {% endif %}
-                {% if salty %}
+                {% if recipe[8]["salty"] %}
                     <li><img src="{{ url_for('static', filename='tabler-icons/tabler-icon-salt.svg') }}"> $strings.salty_label$</li>
                 {% endif %}
-                {% if sour %}
+                {% if recipe[8]["sour"] %}
                     <li><img src="{{ url_for('static', filename='tabler-icons/tabler-icon-lemon.svg') }}"> $strings.sour_label$</li>
                 {% endif %}
-                {% if bitter %}
+                {% if recipe[8]["bitter"] %}
                     <li><img src="{{ url_for('static', filename='tabler-icons/tabler-icon-coffee.svg') }}"> $strings.bitter_label$</li>
                 {% endif %}
-                {% if umami %}
+                {% if recipe[8]["umami"] %}
                     <li><img src="{{ url_for('static', filename='tabler-icons/tabler-icon-mushroom.svg') }}"> $strings.umami_label$</li>
                 {% endif %}
             </ul>
@@ -68,9 +64,7 @@
                     {% endfor %}
                 </p>
             {% endif %}
-            {% if description %}
-                <p>{{description}}</p>
-            {% endif %}
+            <p>{{recipe[1]}} dish.</p>
         </header>
         {% if image %}
             <div class="servingsuggestion">
@@ -92,12 +86,12 @@
             <hr>
             <h2><span>Ingredients</span></h2>
             <ul>
-            {% for ings in ingredients %}
+            {% for ings in recipe[3] %}
             <li><code>{{ings[0]}}</code> {{ings[1]}}</li>
             {% endfor %}
             </ul>
             <h2><span>Instructions</span></h2>
-            {% for instruct in instructions %}
+            {% for instruct in recipe[4] %}
             <hr />
             <blockquote>
             <p>{{instruct}}</p>

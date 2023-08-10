@@ -26,7 +26,8 @@ def calendar():
 @app.route('/recipe/<id>')
 def recipe(id):
     recipe_in_question = app.__RECIPES[int(id)]
-    return render_template(R'recipe.template.html', title=recipe_in_question[0], ingredients=recipe_in_question[3], instructions=["do the thing", "then the second thing", "and so on"])
+    # title=recipe_in_question[0], ingredients=recipe_in_question[3], instructions=["do the thing", "then the second thing", "and so on"]
+    return render_template(R'recipe.template.html', recipe=app.__RECIPES[int(id)])
 
 
 @app.route('/remove/<day>/<id>')
