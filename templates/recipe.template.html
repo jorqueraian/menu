@@ -40,19 +40,19 @@
                     <li><img src="{{ url_for('static', filename='tabler-icons/tabler-icon-pepper.svg') }}"> {{recipe[8]["spicy"]}}</li>
                 {% endif %}
                 {% if recipe[8]["sweet"] %}
-                    <li><img src="{{ url_for('static', filename='tabler-icons/tabler-icon-candy.svg') }}"> $strings.sweet_label$</li>
+                    <li><img src="{{ url_for('static', filename='tabler-icons/tabler-icon-candy.svg') }}"> {{recipe[8]["sweet"]}}</li>
                 {% endif %}
                 {% if recipe[8]["salty"] %}
-                    <li><img src="{{ url_for('static', filename='tabler-icons/tabler-icon-salt.svg') }}"> $strings.salty_label$</li>
+                    <li><img src="{{ url_for('static', filename='tabler-icons/tabler-icon-salt.svg') }}"> {{recipe[8]["salty"]}}</li>
                 {% endif %}
                 {% if recipe[8]["sour"] %}
-                    <li><img src="{{ url_for('static', filename='tabler-icons/tabler-icon-lemon.svg') }}"> $strings.sour_label$</li>
+                    <li><img src="{{ url_for('static', filename='tabler-icons/tabler-icon-lemon.svg') }}"> {{recipe[8]["sour"]}}</li>
                 {% endif %}
                 {% if recipe[8]["bitter"] %}
-                    <li><img src="{{ url_for('static', filename='tabler-icons/tabler-icon-coffee.svg') }}"> $strings.bitter_label$</li>
+                    <li><img src="{{ url_for('static', filename='tabler-icons/tabler-icon-coffee.svg') }}"> {{recipe[8]["bitter"]}}</li>
                 {% endif %}
                 {% if recipe[8]["umami"] %}
-                    <li><img src="{{ url_for('static', filename='tabler-icons/tabler-icon-mushroom.svg') }}"> $strings.umami_label$</li>
+                    <li><img src="{{ url_for('static', filename='tabler-icons/tabler-icon-mushroom.svg') }}"> {{recipe[8]["umami"]}}</li>
                 {% endif %}
             </ul>
             {% if nutrition %}

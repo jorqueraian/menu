@@ -9,7 +9,7 @@ from MenuReader import read_menu, generate_meal_plan, remove_from_meal_plan
 app = Flask(__name__)
 
 app.__RECIPES = None
-app.__MEAL_PLAN = [[1, 2], [3], [1, 3]]
+app.__MEAL_PLAN = [[1, 2], [3], [4, 3], [5,6], [7,8]]
 #[["Monday", [[1,"food name 1", {"spicy":True, "favorite":True}], [2,"food name 2", {"favorite":True}]]], ["Tuesday", [[3,"food name 3", {"veggie":True}]]],["Wednesday", [[1,"food name 1", {"veggie":True}]]],["Thursday", [[3,"food name 3", {"veggie":True}]]]]
 app.__DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]  # this is sloppy but i dont care
 
@@ -32,7 +32,6 @@ def recipe(id):
 
 @app.route('/remove/<day>/<id>')
 def remove(day, id):
-    print(day, id)
     remove_from_meal_plan(app.__MEAL_PLAN, app.__DAYS.index(day), int(id))
     return redirect(url_for('calendar'))
 

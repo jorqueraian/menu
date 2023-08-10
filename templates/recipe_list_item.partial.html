@@ -5,11 +5,11 @@
             <!--{ if recipe[2]["veggie"] } { endif }$if(recipe.vegan)$$else$<img src="assets/tabler-icons/tabler-icon-meat.svg" alt="$strings.meat_label$">$endif$$endif$-->
             {% if recipes[recipe][8]["veggie"] %} <img src="{{ url_for('static', filename='tabler-icons/tabler-icon-leaf.svg') }}" alt="Veggie"> {% endif %}
             {% if recipes[recipe][8]["spicy"] %}<img src="{{ url_for('static', filename='tabler-icons/tabler-icon-pepper.svg') }}" alt="spicy">{% endif %}
-            <!--$if(recipe.sweet)$<img src="assets/tabler-icons/tabler-icon-candy.svg" alt="$strings.sweet_label$">$endif$
-            $if(recipe.salty)$<img src="assets/tabler-icons/tabler-icon-salt.svg" alt="$strings.salty_label$">$endif$
-            $if(recipe.sour)$<img src="assets/tabler-icons/tabler-icon-lemon.svg" alt="$strings.sour_label$">$endif$
-            $if(recipe.bitter)$<img src="assets/tabler-icons/tabler-icon-coffee.svg" alt="$strings.bitter_label$">$endif$
-            $if(recipe.umami)$<img src="assets/tabler-icons/tabler-icon-mushroom.svg" alt="$strings.umami_label$">$endif$-->
+            {% if recipes[recipe][8]["sweet"] %}<img src="{{ url_for('static', filename='tabler-icons/tabler-icon-candy.svg') }}" alt="sweet">{% endif %}
+            {% if recipes[recipe][8]["salty"] %}<img src="{{ url_for('static', filename='tabler-icons/tabler-icon-salt.svg') }}" alt="salty">{% endif %}
+            {% if recipes[recipe][8]["sour"] %}<img src="{{ url_for('static', filename='tabler-icons/tabler-icon-lemon.svg') }}" alt="sour">{% endif %}
+            {% if recipes[recipe][8]["bitter"] %}<img src="{{ url_for('static', filename='tabler-icons/tabler-icon-coffee.svg') }}" alt="bitter">{% endif %}
+            {% if recipes[recipe][8]["umami"] %}<img src="{{ url_for('static', filename='tabler-icons/tabler-icon-mushroom.svg') }}" alt="umami">{% endif %}
             &nbsp&nbsp&nbsp
             <a href="/remove/{{days[it]}}/{{recipe}}"><img src="{{ url_for('static', filename='tabler-icons/delete-button.svg') }}" alt="delete"></a>
         </i>
