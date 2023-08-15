@@ -1,6 +1,8 @@
 #My refusal to add anything to PATH is causing problems so run this to run C:\Users\jorqu\Documents\git_projects\menu\.conda\Scripts\flask --app run run
 # I have not idea what im doing. im just following this: https://blog.appseed.us/flask-templates-curated-list-18vq/
 
+# for future use on progressive web apps: https://www.reddit.com/r/flask/comments/euolxj/how_can_i_turn_my_flask_app_most_efficiently_into/ and https://web.dev/progressive-web-apps/
+
 #templates came from here:: https://github.com/doersino/nyum/tree/main
 
 from flask import Flask, render_template, redirect, url_for
@@ -45,3 +47,6 @@ def share_meal_plan(meal_plan):
     # generates some sharable thing
     pass
 """
+
+
+app.run()

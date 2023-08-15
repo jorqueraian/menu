@@ -2,9 +2,6 @@ import csv
 import re
 
 
-
-
-
 def read_menu(menu_csv): # Im lazy so this will be poorly written 
     """
     This will give you a list of recipes each an array indexed as follow
@@ -15,11 +12,11 @@ def read_menu(menu_csv): # Im lazy so this will be poorly written
         recipe_arr = [row for row in recipes][1:]
         # TODO: Split by main meal, dinner/lunch, side and so on
         for j, row in enumerate(recipe_arr):
-            ingredients = re.split(R", *", row[3])
+            ingredients = re.split(R",\s*", row[3])
             ing_pairs = [("","")]*len(ingredients)
             tags = {}
             for i, ing in enumerate(ingredients):
-                ing_by_word = re.split(R" +", ing)
+                ing_by_word = re.split(R"\s+", ing)
                 ing_pairs[i]=(ing_by_word[0], ' '.join(ing_by_word[1:])) if re.match(R"[0-9]+[0-9-./]*\w*", ing_by_word[0]) else ("", ing)
             # TODO: also need to do same thing but for instructions probably splitting on something of the form (\d)
             # TODO: Parse tags string and put in dictionary: example: {"spicy":True, "favorite":True}
@@ -51,10 +48,7 @@ def remove_from_meal_plan(meal_plan, day, meal):
     save_meal_plan(meal_plan)
 
 
+
 def generate_shopping_list(meal_plan):
     #also may be trick to add up ingredients and what not. do last
     pass
-
-
-
-#print(read_menu("menu.csv")[0])
