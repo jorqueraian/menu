@@ -1,5 +1,6 @@
 import csv
 import re
+from enum import Enum
 
 
 class RecipeInd(Enum):
@@ -33,11 +34,13 @@ def read_menu(menu_csv):
         next(recipes)
         # Turning the iterator into a list
         recipe_arr = [row for row in recipes]
+
         # TODO: Split by main meal, dinner/lunch, side and so on
         # Loop over recipes in the list 
+
         for j, row in enumerate(recipe_arr):
             # Parse ingredient list by commas and remove whitespaces
-            ingredients = re.split(R",\s*", row[RecipeInd.INGREDIENTS])
+            ingredients = re.split(R",\s*", row[RecipeInd.INGREDIENTS.value])
             # Initialize list for parsed ingredients where each element will look like ("1tsp", "chicken") when applicable
             ing_pairs = [("","")]*len(ingredients)
             # initialize dictionary for tags, example "spicy:mild"
@@ -53,7 +56,7 @@ def read_menu(menu_csv):
             
             # from the tags text we want to parse the tags and put them in a dictionary such that the text "spicy:hot, salty" will be
             # encoded as {"spicy":"hot", "salty":"salty"}. first we split by , and then split by : if it exists
-            for tag in re.split(R", *", row[RecipeInd.TAGS]):
+            for tag in re.split(R", *", row[RecipeInd.TAGS.value]):
                 dic_pair = re.split(R":", tag)
                 tags[dic_pair[0]] = dic_pair[1] if len(dic_pair) > 1 else dic_pair[0]
 
@@ -64,9 +67,9 @@ def read_menu(menu_csv):
             # once instructions are parsed we want to put the resulting list in recipe_arr[j][RecipeInd.INSTRUCTIONS]
 
             # Once text is parsed we will put the parsed info back into the original array. might be smart to generate a new list for better memory management but what ever
-            recipe_arr[j][RecipeInd.INGREDIENTS]=ing_pairs
-            recipe_arr[j][RecipeInd.INSTRUCTIONS]=[recipe_arr[j][RecipeInd.INSTRUCTIONS]]  # this is only so front end doesn't break but should de removed when parsing of instructions is done
-            recipe_arr[j][RecipeInd.TAGS] = tags
+            recipe_arr[j][RecipeInd.INGREDIENTS.value]=ing_pairs
+            recipe_arr[j][RecipeInd.INSTRUCTIONS.value]=[recipe_arr[j][RecipeInd.INSTRUCTIONS.value]]  # this is only so front end doesn't break but should de removed when parsing of instructions is done
+            recipe_arr[j][RecipeInd.TAGS.value] = tags
         return recipe_arr
     
 
@@ -97,3 +100,4 @@ def generate_shopping_list(meal_plan):
 
 
 #print(read_menu("menu.csv"))
+print(RecipeInd.INGREDIENTS.value)
