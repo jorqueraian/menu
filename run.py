@@ -12,6 +12,8 @@ app = Flask(__name__)
 
 # These are basically our cookies
 app.__RECIPES = None
+
+#Running into problems here with pulling multiple meals 
 app.__MEAL_PLAN = [[1, 2], [3], [4, 3], [5,6], [7,8]]
 app.__DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]  # this is sloppy but i dont care
 
@@ -26,7 +28,7 @@ def calendar():
     if app.__MEAL_PLAN is None:
         app.__MEAL_PLAN = generate_meal_plan(app.__RECIPES)
     return render_template(R'index.template.html', mealplan=zip(range(len(app.__MEAL_PLAN)), app.__MEAL_PLAN), recipes=app.__RECIPES, days=app.__DAYS)
-
+#Problem: Recipes aren't randomized, each time site is called (even after quitting), the same recipes are propoagated. 
 
 @app.route('/recipe/<id>')
 def recipe(id):
@@ -40,7 +42,15 @@ def remove(day, id):
     remove_from_meal_plan(app.__MEAL_PLAN, app.__DAYS.index(day), int(id))
     return redirect(url_for('calendar'))
 
+"""
+#Should have some way to repopulate a recipe if one is trashed for the day
+@app.route('/newrecipe/<day>/<id>') 
+def newrecipe(day, id):
 
+    Should have some way to pull a new recipe in just for the day needed. On button click. 
+
+    return redirect(url_for('calendar'))
+"""
 """
 Not sure how to do this yet but
 def load_meal_plan(shared_key):
@@ -49,7 +59,11 @@ def load_meal_plan(shared_key):
 def share_meal_plan(meal_plan):
     # generates some sharable thing
     pass
-"""
 
+    Want to make a separate page that pull up shopping list for meal plan   
+@app.route('/shopping/')
+def shopping_list():
+    generate_shopping_list()
+"""
 
 app.run()

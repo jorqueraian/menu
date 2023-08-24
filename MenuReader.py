@@ -60,15 +60,18 @@ def read_menu(menu_csv):
                 dic_pair = re.split(R":", tag)
                 tags[dic_pair[0]] = dic_pair[1] if len(dic_pair) > 1 else dic_pair[0]
 
-            # TODO 1: need to do same thing but for instructions probably splitting on something of the form \(\d\)
-            # Note that the instruction string is stored in row[RecipeInd.INSTRUCTIONS]
-            # Use re.split to split this string into a list of the steps. the file indicates steps with (1) (2) and so on so we could use the regex \s*\(\d\)\s* which would also remove any whitespace
-            # careful the first element in this list might be empty 
-            # once instructions are parsed we want to put the resulting list in recipe_arr[j][RecipeInd.INSTRUCTIONS]
+            # Parse instructions list
+            instructions = re.split(R"\s*\(\d\)\s*", row[RecipeInd.INSTRUCTIONS.value])
+            inst_arr = instructions
+
+            for i, instruc in enumerate(inst_arr):
+                inst_arr[i] = instruc
+
+            inst_arr = list(filter(None, instructions))
 
             # Once text is parsed we will put the parsed info back into the original array. might be smart to generate a new list for better memory management but what ever
             recipe_arr[j][RecipeInd.INGREDIENTS.value]=ing_pairs
-            recipe_arr[j][RecipeInd.INSTRUCTIONS.value]=[recipe_arr[j][RecipeInd.INSTRUCTIONS.value]]  # this is only so front end doesn't break but should de removed when parsing of instructions is done
+            recipe_arr[j][RecipeInd.INSTRUCTIONS.value]=inst_arr  # this is only so front end doesn't break but should de removed when parsing of instructions is done
             recipe_arr[j][RecipeInd.TAGS.value] = tags
         return recipe_arr
     
@@ -99,5 +102,5 @@ def generate_shopping_list(meal_plan):
     pass
 
 
-#print(read_menu("menu.csv"))
-print(RecipeInd.INGREDIENTS.value)
+print(read_menu("menu.csv"))
+#print(RecipeInd.INGREDIENTS.value)
