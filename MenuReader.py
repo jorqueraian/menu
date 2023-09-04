@@ -1,6 +1,7 @@
 import csv
 import re
 from enum import Enum
+import random
 
 
 class RecipeInd(Enum):
@@ -33,7 +34,7 @@ def read_menu(menu_csv):
         # Skip first line which is just the column header
         next(recipes)
         # Turning the iterator into a list
-        recipe_arr = [row for row in recipes]
+        recipe_arr = [row for row in recipes if row[RecipeInd.TYPE.value].lower() == "main"]
 
         # TODO: Split by main meal, dinner/lunch, side and so on
         # Loop over recipes in the list 
@@ -69,6 +70,7 @@ def read_menu(menu_csv):
 
             inst_arr = list(filter(None, instructions))
 
+
             # Once text is parsed we will put the parsed info back into the original array. might be smart to generate a new list for better memory management but what ever
             recipe_arr[j][RecipeInd.INGREDIENTS.value]=ing_pairs
             recipe_arr[j][RecipeInd.INSTRUCTIONS.value]=inst_arr  # this is only so front end doesn't break but should de removed when parsing of instructions is done
@@ -76,19 +78,20 @@ def read_menu(menu_csv):
         return recipe_arr
     
 
-def generate_meal_plan(recipes, meals_per_day=1):
+def generate_meal_plan(num_recipes, meals_per_day=1):
     # TODO: This might be tricky. we need to a way to take into account how many servings (maybe. i think we can ignore this)
     # a meal has and how many people will be eating. Maybe adding a way to remove items from the meal plan
     # this should also save the meal plan as a file and reload checking how old the file is. If its at least a day old and its monday
     # then a new meal plan will be created. Or if no file exists it will generate. For simplicity i think the meal plan should be saved as: [[4,3],[5],[1,12,6],....] where each element is a list
     # of that days and meals given by their index in the recipe array. But the function should return a list with more information. or maybe the flask should just generate the info for its self.
     
-    # generate 7*(meals_per_day) meals and store them as there indices
-    # You can 
-    #[[1,2], [3,4], []]
-    
-    pass
+    meal_plan = [ [] for _ in range(7)]
+    recipe_indices = [i for i in range(num_recipes)]
 
+    for day in range(len(meal_plan)):
+        meal_plan[day] = random.sample(recipe_indices, meals_per_day)
+    return meal_plan
+ 
 
 def save_meal_plan(meal_plan):
     # TODO: Can probably just save directly to a file. google this. But we probably want to save as csv 

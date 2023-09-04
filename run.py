@@ -14,7 +14,7 @@ app = Flask(__name__)
 app.__RECIPES = None
 
 #Running into problems here with pulling multiple meals 
-app.__MEAL_PLAN = [[1, 2], [3], [4, 3], [5,6], [7,8]]
+app.__MEAL_PLAN = None
 app.__DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]  # this is sloppy but i dont care
 
 
@@ -26,7 +26,7 @@ def calendar():
     if app.__RECIPES is None:
         app.__RECIPES = read_menu("menu.csv")
     if app.__MEAL_PLAN is None:
-        app.__MEAL_PLAN = generate_meal_plan(app.__RECIPES)
+        app.__MEAL_PLAN = generate_meal_plan(len(app.__RECIPES), 1)
     return render_template(R'index.template.html', mealplan=zip(range(len(app.__MEAL_PLAN)), app.__MEAL_PLAN), recipes=app.__RECIPES, days=app.__DAYS)
 #Problem: Recipes aren't randomized, each time site is called (even after quitting), the same recipes are propoagated. 
 
