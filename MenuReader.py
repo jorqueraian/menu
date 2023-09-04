@@ -76,12 +76,17 @@ def read_menu(menu_csv):
         return recipe_arr
     
 
-def generate_meal_plan(recipes):
+def generate_meal_plan(recipes, meals_per_day=1):
     # TODO: This might be tricky. we need to a way to take into account how many servings (maybe. i think we can ignore this)
     # a meal has and how many people will be eating. Maybe adding a way to remove items from the meal plan
     # this should also save the meal plan as a file and reload checking how old the file is. If its at least a day old and its monday
     # then a new meal plan will be created. Or if no file exists it will generate. For simplicity i think the meal plan should be saved as: [[4,3],[5],[1,12,6],....] where each element is a list
     # of that days and meals given by their index in the recipe array. But the function should return a list with more information. or maybe the flask should just generate the info for its self.
+    
+    # generate 7*(meals_per_day) meals and store them as there indices
+    # You can 
+    #[[1,2], [3,4], []]
+    
     pass
 
 
