@@ -2,7 +2,7 @@
 <html lang="$lang$">
 <head>
     {% include 'head.partial.html' %}
-    <title>{% if index_title %}{{index_title}} – {% endif %} Meal Plan</title>
+    <title>Recipes</title>
 </head>
 <body>
     <main class="index">
@@ -12,11 +12,7 @@
                     <a href="/"><h2>Home<i>⟩</i></h2></a>
                     <a href="/all"><h2>All Recipes<i>⟩</i></h2></a>
                 </nav>
-                {% if index_title %}
-                    <h1><span>{{index_title}}</span></h1>
-                {% else %}
-                    <div>&nbsp;</div>  <!-- fix for weird line-height behavior when there's no block element in the inline-block element .name in safari -->
-                {% endif %}
+                <h1><span>All Recipes</span></h1>
             </div>
             {% if index_description %}
                 <p>{{index_description}}</p>
@@ -27,14 +23,12 @@
                 <script src="{{ url_for('static', filename='search.js') }}"></script>
             </aside>-->
         </header>
-        {% for it, day in mealplan %}
             <section>
-                <h2>{{days[it]}}</h2>
-                {% for recipe in day %}
+                <h2><div>Recipes</div></h2>
+                {% for recipe in meals %}
                     {% include 'recipe_list_item.partial.html' %}
                 {% endfor %}
             </section>
-        {% endfor %}
         {% include 'footer.partial.html' %}
     </main>
 </body>

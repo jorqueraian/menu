@@ -30,6 +30,14 @@ def calendar():
     return render_template(R'index.template.html', mealplan=zip(range(len(app.__MEAL_PLAN)), app.__MEAL_PLAN), recipes=app.__RECIPES, days=app.__DAYS)
 #Problem: Recipes aren't randomized, each time site is called (even after quitting), the same recipes are propoagated. 
 
+
+@app.route('/all')
+def all_recipes():
+    """
+    List of all recipes
+    """
+    return render_template(R'all-recipes.template.html', meals=[i for i in range(len(app.__RECIPES))], recipes=app.__RECIPES)
+
 @app.route('/recipe/<id>')
 def recipe(id):
     recipe_in_question = app.__RECIPES[int(id)]

@@ -10,11 +10,13 @@
             {% if recipes[recipe][8]["sour"] %}<img src="{{ url_for('static', filename='tabler-icons/tabler-icon-lemon.svg') }}" alt="sour">{% endif %}
             {% if recipes[recipe][8]["bitter"] %}<img src="{{ url_for('static', filename='tabler-icons/tabler-icon-coffee.svg') }}" alt="bitter">{% endif %}
             {% if recipes[recipe][8]["umami"] %}<img src="{{ url_for('static', filename='tabler-icons/tabler-icon-mushroom.svg') }}" alt="umami">{% endif %}
-            &nbsp&nbsp&nbsp
-            <a href="/remove/{{days[it]}}/{{recipe}}"><img src="{{ url_for('static', filename='tabler-icons/delete-button.svg') }}" alt="delete"></a>
+            
+            {% if days is defined%}
+                &nbsp&nbsp&nbsp
+                <a href="/remove/{{days[it]}}/{{recipe}}"><img src="{{ url_for('static', filename='tabler-icons/delete-button.svg') }}" alt="delete"></a>
+            {% endif %}
         </i>
         <a href="/recipe/{{recipe}}"><span>{{recipes[recipe][0]}}</span></a>
-        <!--<a href="/remove/{{days[it]}}/{{recipe}}"><span>(-)</span></a>-->
     </h3>
     <!--$if(recipe.description)$
         <p>$recipe.description$</p>
