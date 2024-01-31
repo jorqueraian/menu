@@ -24,7 +24,12 @@
             </aside>-->
         </header>
             <section>
-                <h2><div>Recipes</div></h2>
+                <h2><div class="tab">
+                    <a href="/all/main"><button class="tablinks">Main Recipes</button></a>
+                    <a href="/all/side"><button class="tablinks">Sides</button></a>
+                    <a href="/all/drink"><button class="tablinks">Drinks</button></a>
+                </div></h2>
+                <h2>Main </h2>
                 {% for recipe in meals %}
                     {% include 'recipe_list_item.partial.html' %}
                 {% endfor %}

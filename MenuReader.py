@@ -2,7 +2,25 @@ import csv
 import re
 from enum import Enum
 import random
+import pandas as pd
+import numpy as np
 
+class RecipeInd_text_unused(Enum):
+    """
+    0: name of meal, 1: Recipe Type (Main, Side), 2: Number of servings, 
+    3: list of ingredient pairs for example (1tsp, chicken), 4: list of instructions, 
+    5: original recipe link if applicable, 6: allowed sides, 7: number of sides to include, 
+    8: tags (spicy:medium, veggie, favorite)
+    """
+    NAME = "Recipe Name"
+    TYPE = "Dish Type"
+    NUM_SERVINGS = "Number of Servings"
+    INGREDIENTS = "Ingredients"
+    INSTRUCTIONS = "Instructions"
+    LINK = "Original Recipe"
+    ALLOWED_SIDES = "Allowed Sides"
+    NUM_SIDES = "Number of sides"
+    TAGS = "Flags"
 
 class RecipeInd(Enum):
     """
@@ -22,7 +40,7 @@ class RecipeInd(Enum):
     TAGS = 8
 
 
-def read_menu(menu_csv):
+def read_menu(menu_csv, dish_type="main"):
     """
     This function takes in a string with the location of the recipe csv file and 
     returns a list of the recipes. Where each recipe is a list indexed based on the RecipeInd
@@ -34,7 +52,8 @@ def read_menu(menu_csv):
         # Skip first line which is just the column header
         next(recipes)
         # Turning the iterator into a list
-        recipe_arr = [row for row in recipes if row[RecipeInd.TYPE.value].lower() == "main"]
+        
+        recipe_arr = [row for row in recipes]  #[row for row in recipes if row[RecipeInd.TYPE.value].lower().strip() == dish_type]
 
         # TODO: Split by main meal, dinner/lunch, side and so on
         # Loop over recipes in the list 
@@ -75,8 +94,8 @@ def read_menu(menu_csv):
             recipe_arr[j][RecipeInd.INGREDIENTS.value]=ing_pairs
             recipe_arr[j][RecipeInd.INSTRUCTIONS.value]=inst_arr  # this is only so front end doesn't break but should de removed when parsing of instructions is done
             recipe_arr[j][RecipeInd.TAGS.value] = tags
-        return recipe_arr
-    
+        return [row for row in recipe_arr if row[RecipeInd.TYPE.value].lower().strip() == dish_type]
+
 
 def generate_meal_plan(num_recipes, meals_per_day=1):
     # TODO: This might be tricky. we need to a way to take into account how many servings (maybe. i think we can ignore this)

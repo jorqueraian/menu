@@ -30,13 +30,18 @@ def calendar():
     return render_template(R'index.template.html', mealplan=zip(range(len(app.__MEAL_PLAN)), app.__MEAL_PLAN), recipes=app.__RECIPES, days=app.__DAYS)
 #Problem: Recipes aren't randomized, each time site is called (even after quitting), the same recipes are propoagated. 
 
-
 @app.route('/all')
-def all_recipes():
+@app.route('/all/<tag>')
+def all_recipes(tag=None):
     """
     List of all recipes
     """
-    return render_template(R'all-recipes.template.html', meals=[i for i in range(len(app.__RECIPES))], recipes=app.__RECIPES)
+    # todo have a way to get all tags, ex main, side drink and then populate the buttons that way. do abstractly
+    if tag == None:
+        menu_of_interest = app.__RECIPES
+    else:
+        menu_of_interest = read_menu("menu.csv", tag)
+    return render_template(R'all-recipes.template.html', meals=[i for i in range(len(menu_of_interest))], recipes=menu_of_interest)
 
 @app.route('/recipe/<id>')
 def recipe(id):
